@@ -1,0 +1,33 @@
+{
+  "name": "sd-creations",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "predev": "npm run assets",
+    "build": "vite build",
+    "prebuild": "npm run assets",
+    "preview": "vite preview",
+    "assets": "node scripts/subset-fonts.mjs && node scripts/optimize-images.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.11.2",
+    "preact": "^10.29.8"
+  },
+  "devDependencies": {
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource/rozha-one": "^5.3.0",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.3",
+    "preact-render-to-string": "^6.7.0",
+    "sharp": "^0.35.5",
+    "subset-font": "^2.9.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}
