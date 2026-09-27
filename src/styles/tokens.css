@@ -1,0 +1,116 @@
+/* ── Fonts ─────────────────────────────────────────────────────────────────
+   Both are trimmed to just the letters the site uses (scripts/subset-fonts.mjs). */
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../assets/fonts/fraunces.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rozha One';
+  src: url('../assets/fonts/rozha-one-hindi.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+25CC, U+A8E0-A8FF;
+}
+
+/* ── Colours ───────────────────────────────────────────────────────────────
+   Rani pink + marigold, with peacock teal and haldi as supporting colours.
+   Light is a warm ivory day; dark is a deep indigo Diwali night. */
+:root {
+  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-hindi: 'Rozha One', 'Noto Serif Devanagari', 'Kohinoor Devanagari', serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial,
+    sans-serif;
+
+  --rani: #e91e78;
+  --rani-strong: #d81b6e; /* buttons: white text passes AA */
+  --rani-ink: #c4105a; /* pink text on light backgrounds */
+  --rani-soft: #ffe3ef;
+  --marigold: #ff8a00;
+  --marigold-ink: #a85400;
+  --marigold-soft: #ffebd1;
+  --peacock: #0e9594;
+  --peacock-strong: #0b7c7b;
+  --peacock-ink: #0b7c7b;
+  --peacock-soft: #d6f3f0;
+  --haldi: #ffc53d;
+  --wa: #15803d;
+  --wa-hover: #166534;
+  --plum: #2a1633;
+
+  --bg: #fff8ee;
+  --bg-alt: #fff0dc;
+  --surface: #ffffff;
+  --surface-2: #fff4e6;
+  --text: #2a1633;
+  --text-2: #6b5470;
+  --line: rgb(42 22 51 / 0.1);
+  --line-strong: rgb(42 22 51 / 0.2);
+  --backdrop: rgb(42 22 51 / 0.45);
+
+  --shadow-sm: 0 1px 2px rgb(42 22 51 / 0.05), 0 4px 12px -6px rgb(42 22 51 / 0.12);
+  --shadow: 0 1px 2px rgb(42 22 51 / 0.06), 0 16px 36px -16px rgb(42 22 51 / 0.28);
+  --shadow-lg: 0 30px 60px -24px rgb(42 22 51 / 0.45);
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --max: 1200px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --header-h: 64px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --rani: #ff4f9a;
+  --rani-ink: #ff7ab5;
+  --rani-soft: #3b1843;
+  --marigold: #ffa53a;
+  --marigold-ink: #ffb95e;
+  --marigold-soft: #3a2433;
+  --peacock: #2ec4c0;
+  --peacock-ink: #5ad8d4;
+  --peacock-soft: #133b4b;
+  --haldi: #ffd166;
+
+  --bg: #150f2e;
+  --bg-alt: #1c1442;
+  --surface: #221a4a;
+  --surface-2: #2a2158;
+  --text: #fff1e0;
+  --text-2: #c9b8d9;
+  --line: rgb(255 241 224 / 0.1);
+  --line-strong: rgb(255 241 224 / 0.22);
+  --backdrop: rgb(8 5 20 / 0.6);
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 12px -6px rgb(0 0 0 / 0.4);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 36px -16px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 30px 60px -24px rgb(0 0 0 / 0.8);
+
+  color-scheme: dark;
+}
+
+/* Each collection has its own accent colour. */
+[data-accent='rani'] {
+  --accent: var(--rani);
+  --accent-solid: var(--rani-strong);
+  --accent-ink: var(--rani-ink);
+  --accent-soft: var(--rani-soft);
+  --on-accent: #fff;
+}
+[data-accent='peacock'] {
+  --accent: var(--peacock);
+  --accent-solid: var(--peacock-strong);
+  --accent-ink: var(--peacock-ink);
+  --accent-soft: var(--peacock-soft);
+  --on-accent: #fff;
+}
+[data-accent='marigold'] {
+  --accent: var(--marigold);
+  --accent-solid: #ff8a00;
+  --accent-ink: var(--marigold-ink);
+  --accent-soft: var(--marigold-soft);
+  --on-accent: var(--plum);
+}
