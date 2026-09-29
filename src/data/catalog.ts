@@ -26,8 +26,6 @@ export interface Collection {
   size: string
   delivery: string
   limited?: boolean
-  /** Accent colour used for this collection across the site (see styles/tokens.css). */
-  accent: 'rani' | 'peacock' | 'marigold'
 }
 
 export interface Product {
@@ -59,7 +57,6 @@ export const collections: Collection[] = [
     ],
     size: 'About 12 × 12 cm',
     delivery: '5–8 working days',
-    accent: 'rani',
   },
   {
     id: 'golden-heritage',
@@ -79,7 +76,6 @@ export const collections: Collection[] = [
     size: 'About 8 × 8 cm',
     delivery: '5–7 working days',
     limited: true,
-    accent: 'peacock',
   },
   {
     id: 'tanjore-soan',
@@ -93,7 +89,6 @@ export const collections: Collection[] = [
     materials: ['Hand-painted Tanjore artwork', 'Gold-tone detailing', 'Handmade base'],
     size: 'About 5 × 5 cm',
     delivery: '3–5 working days',
-    accent: 'marigold',
   },
 ]
 

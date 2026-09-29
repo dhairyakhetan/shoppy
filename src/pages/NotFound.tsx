@@ -10,14 +10,14 @@ export function NotFound() {
   })
   return (
     <section class="container not-found">
-      <Diya size={112} id="diya-404" lit />
-      <h1 class="h2">This page has wandered off</h1>
+      <Diya size={84} id="diya-404" lit />
+      <h1 class="display">This page has wandered off</h1>
       <p>The link may be old, or the design may have moved. Let’s get you back to the collection.</p>
       <div class="hero-ctas">
         <a href="/shop" class="btn btn-primary btn-lg">
-          Browse designs
+          Explore the collection
         </a>
-        <a href="/" class="btn btn-ghost btn-lg">
+        <a href="/" class="btn btn-outline btn-lg">
           Go home
         </a>
       </div>

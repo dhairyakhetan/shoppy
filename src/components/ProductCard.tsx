@@ -15,20 +15,19 @@ export function ProductCard({ product, sizes, priority, showCollection = true }:
   const c = collectionOf(product)
   const href = productUrl(product)
   return (
-    <article class="card reveal" data-href={href} data-accent={c.accent}>
+    <article class="card reveal" data-href={href}>
       <a href={href} class="card-link">
         <div class="card-media">
           <Photo
             product={product}
             class="card-photo"
             priority={priority}
-            sizes={sizes ?? '(min-width: 1100px) 270px, (min-width: 700px) 30vw, 46vw'}
+            sizes={sizes ?? '(min-width: 1100px) 280px, (min-width: 700px) 30vw, 46vw'}
           />
-          <span class="card-chip">{c.type}</span>
-          {c.limited && <span class="card-limited">Limited</span>}
+          {c.limited && <span class="card-flag">Limited edition</span>}
         </div>
         <div class="card-body">
-          {showCollection && <span class="card-coll">{c.name}</span>}
+          <span class="card-coll">{showCollection ? `${c.name} · ${c.type}` : c.type}</span>
           <h3 class="card-title">{product.name}</h3>
         </div>
       </a>

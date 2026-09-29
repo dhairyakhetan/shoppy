@@ -10,18 +10,9 @@ import {
   type Product,
 } from '../data/catalog'
 import { site } from '../data/site'
-import { Rangoli, Sparkles, Toran } from '../components/decor'
-import {
-  ArrowIcon,
-  BagIcon,
-  BrushIcon,
-  PinIcon,
-  SparkIcon,
-  TruckIcon,
-  WhatsAppIcon,
-} from '../components/icons'
+import { BrushIcon, ChatIcon, PinIcon, SparkIcon, WhatsAppIcon, ArrowIcon } from '../components/icons'
 import { Photo } from '../components/Photo'
-import { Rail } from '../components/Rail'
+import { ProductCard } from '../components/ProductCard'
 import { SectionHead } from '../components/SectionHead'
 import { price } from '../lib/format'
 import { useHead } from '../lib/head'
@@ -29,176 +20,135 @@ import { customMessage, waLink } from '../lib/whatsapp'
 
 // ── Hero ────────────────────────────────────────────────────────────────────
 
-const HERO = ['golden-heritage-peacock-heritage', 'tanjore-soan-om', 'swarn-dhaga-design-6']
-
 function Hero() {
-  const [left, right, center] = HERO.map((id) => getProduct(id)!)
-  const fan = (p: Product, cls: string, priority?: 'high' | true) => (
-    <a href={productUrl(p)} class={`fan ${cls}`} data-href={productUrl(p)}>
-      <Photo product={p} class="card-photo" sizes="(min-width: 900px) 250px, 42vw" priority={priority} />
-    </a>
-  )
+  const main = getProduct('golden-heritage-peacock-heritage')!
+  const side = getProduct('swarn-dhaga-design-6')!
   return (
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <i class="blob b1" />
-        <i class="blob b2" />
-        <i class="blob b3" />
-        <i class="stars" />
-      </div>
-      <Toran />
       <div class="container hero-inner">
         <div class="hero-copy">
-          <p class="pill">
-            <PinIcon size={16} /> Handmade in {site.city}
-          </p>
-          <h1 class="hero-title">
-            Festive Tanjore art, <em>painted by hand</em>
+          <p class="eyebrow">Hand-painted in {site.city}</p>
+          <h1 class="display">
+            Tanjore art, <em>painted by&nbsp;hand</em>
           </h1>
           <p class="hero-hindi" lang="hi">
             {site.tagline}
           </p>
-          <p class="hero-sub">
-            Rakhis, lumbas and little auspicious keepsakes, each one hand-painted with gold-tone detailing. Fill
-            your bag, then order in a single WhatsApp message.
+          <p class="lede">
+            Rakhis, lumbas and small auspicious keepsakes, each one finished with gold-tone detailing. Choose your
+            pieces and order in a single WhatsApp message.
           </p>
           <div class="hero-ctas">
-            <a class="btn btn-primary btn-lg" href="/shop">
-              Shop all designs <ArrowIcon size={20} />
+            <a class="btn btn-primary" href="/shop">
+              Explore the collection <ArrowIcon size={16} stroke-width={1.5} />
             </a>
-            <a class="btn btn-ghost btn-lg" href="#how-to-order">
+            <a class="text-link" href="#how-to-order">
               How ordering works
             </a>
           </div>
-          <ul class="hero-trust">
-            <li>
-              <BrushIcon size={18} /> 100% handmade
-            </li>
-            <li>
-              <TruckIcon size={18} /> Delivery in {site.city}
-            </li>
-            <li>
-              <SparkIcon size={18} /> Custom designs
-            </li>
-          </ul>
         </div>
+
         <div class="hero-art">
-          <Rangoli class="hero-rangoli" />
-          <Sparkles />
-          {fan(left, 'fan-l', true)}
-          {fan(right, 'fan-r', true)}
-          {fan(center, 'fan-c', 'high')}
+          <span class="arch-outline" aria-hidden="true" />
+          <a href={productUrl(main)} class="arch arch-main" data-href={productUrl(main)}>
+            <Photo product={main} class="card-photo" sizes="(min-width: 900px) 420px, 70vw" priority="high" />
+          </a>
+          <a href={productUrl(side)} class="arch arch-side" data-href={productUrl(side)}>
+            <Photo product={side} class="card-photo" sizes="(min-width: 900px) 200px, 34vw" priority />
+          </a>
+          <p class="hero-caption">
+            <span>Golden Heritage</span> Peacock Heritage lumba
+          </p>
         </div>
       </div>
     </section>
   )
 }
 
-// ── Marquee strip ───────────────────────────────────────────────────────────
+// ── Promises ────────────────────────────────────────────────────────────────
 
-const STRIP = [
-  'Hand-painted Tanjore art',
-  'Gold-tone detailing',
-  `Made in ${site.city}`,
-  'Custom designs on request',
-  'Order on WhatsApp',
-  'Every piece one of a kind',
-]
-
-function Marquee() {
-  const row = (hidden?: boolean) => (
-    <ul aria-hidden={hidden ? 'true' : undefined}>
-      {STRIP.map((s) => (
-        <li key={s}>{s}</li>
+function Promises() {
+  const items = [
+    { icon: BrushIcon, title: 'Painted by hand', text: 'Every piece, start to finish' },
+    { icon: SparkIcon, title: 'Gold-tone detailing', text: 'In the Tanjore tradition' },
+    { icon: PinIcon, title: `Delivered in ${site.city}`, text: 'Within the city' },
+    { icon: ChatIcon, title: 'Custom on request', text: 'Just ask on WhatsApp' },
+  ]
+  return (
+    <ul class="container promises">
+      {items.map(({ icon: Icon, title, text }) => (
+        <li key={title}>
+          <Icon size={22} stroke-width={1.2} />
+          <div>
+            <b>{title}</b>
+            <span>{text}</span>
+          </div>
+        </li>
       ))}
     </ul>
-  )
-  return (
-    <div class="marquee">
-      <div class="marquee-track">
-        {row()}
-        {row(true)}
-      </div>
-    </div>
   )
 }
 
 // ── Collections ─────────────────────────────────────────────────────────────
 
-function CollectionCard({ c }: { c: Collection }) {
+function CollectionTile({ c, cover }: { c: Collection; cover: string }) {
   const items = productsIn(c.id)
-  const prices = new Set(items.map((p) => p.price))
-  const priceLine = prices.size === 1 ? `${price(items[0].price)} each` : `from ${price(lowestPrice(c.id))}`
+  const same = new Set(items.map((p) => p.price)).size === 1
   return (
-    <a href={collectionUrl(c)} class="coll-card reveal" data-accent={c.accent}>
-      <div class="coll-text">
-        <p class="coll-type">
-          {c.typePlural}
-          {c.limited && <span class="coll-limited">Limited edition</span>}
-        </p>
-        <h3 class="coll-hindi" lang="hi">
-          {c.hindi}
-        </h3>
-        <p class="coll-name">
-          {c.name}
-          {c.meaning && <span>“{c.meaning}”</span>}
-        </p>
-        <p class="coll-meta">
-          {items.length} designs · {priceLine}
-        </p>
+    <a href={collectionUrl(c)} class="coll reveal">
+      <div class="coll-arch">
+        <Photo product={getProduct(cover)!} sizes="(min-width: 900px) 360px, 88vw" />
+        {c.limited && <span class="coll-flag">Limited edition</span>}
       </div>
-      <div class="coll-photos" aria-hidden="true">
-        {items.slice(0, 3).map((p, i) => (
-          <div class={`coll-photo p${i}`} key={p.id}>
-            <Photo product={p} sizes="160px" />
-          </div>
-        ))}
-      </div>
-      <span class="coll-cta" aria-hidden="true">
-        <ArrowIcon size={22} />
+      <p class="coll-hindi" lang="hi">
+        {c.hindi}
+      </p>
+      <h3 class="coll-name">{c.name}</h3>
+      <p class="coll-meta">
+        {c.typePlural} · {items.length} designs · {same ? price(items[0].price) : `from ${price(lowestPrice(c.id))}`}
+      </p>
+      <span class="coll-cta">
+        Discover <ArrowIcon size={15} stroke-width={1.5} />
       </span>
     </a>
   )
 }
 
+const COVERS: Record<string, string> = {
+  'swarn-dhaga': 'swarn-dhaga-design-4',
+  'golden-heritage': 'golden-heritage-swarna-abhushan',
+  'tanjore-soan': 'tanjore-soan-sun',
+}
+
 // ── How ordering works ──────────────────────────────────────────────────────
 
 const STEPS = [
+  { title: 'Choose your pieces', text: 'Browse the collection and add the designs you love to your bag.' },
   {
-    icon: BagIcon,
-    title: 'Fill your bag',
-    text: 'Browse the designs and tap ADD on the ones you love. Change quantities any time.',
-  },
-  {
-    icon: WhatsAppIcon,
     title: 'Send it on WhatsApp',
-    text: 'Your bag turns into a ready-made message with every design and the total. Just tap send.',
+    text: 'Your bag becomes a ready-written message with every piece and the total. Just tap send.',
   },
   {
-    icon: TruckIcon,
-    title: 'Pay and receive',
-    text: `We confirm your order, payment and delivery with you on chat, then deliver it anywhere in ${site.city}.`,
+    title: 'Confirm and receive',
+    text: `We confirm availability, payment and delivery with you on chat, then deliver within ${site.city}.`,
   },
 ]
 
 function HowToOrder() {
   return (
-    <section class="section how" aria-labelledby="how-title" id="how-to-order">
+    <section class="how" id="how-to-order" aria-labelledby="how-title">
       <div class="container">
         <SectionHead
           id="how-title"
           eyebrow="How it works"
-          title="Ordering is as easy as a chat"
-          sub="No accounts, no forms, no card details. Just WhatsApp."
+          title="Ordering, as easy as a conversation"
+          sub="No accounts and no card details. Everything is arranged personally on WhatsApp."
           center
         />
         <ol class="steps">
-          {STEPS.map(({ icon: Icon, title, text }, i) => (
+          {STEPS.map(({ title, text }, i) => (
             <li class="step reveal" key={title}>
-              <span class="step-icon">
-                <Icon size={26} />
-                <span class="step-num">{i + 1}</span>
-              </span>
+              <span class="step-num">{['I', 'II', 'III'][i]}</span>
               <h3>{title}</h3>
               <p>{text}</p>
             </li>
@@ -211,21 +161,29 @@ function HowToOrder() {
 
 // ── Custom designs ──────────────────────────────────────────────────────────
 
-function CustomBand() {
+function Custom() {
+  const p = getProduct('tanjore-soan-om')!
   return (
-    <section class="container custom-wrap" id="custom" aria-labelledby="custom-title">
-      <div class="custom-band reveal">
-        <Rangoli class="band-rangoli" />
-        <div class="custom-copy">
-          <p class="eyebrow eyebrow-light">Custom designs</p>
-          <h2 class="h2" id="custom-title">
-            Have something special in mind?
-          </h2>
-          <p>Custom designs are available on request. Tell us your idea and we'll work out a piece made just for you.</p>
+    <section class="section" id="custom" aria-labelledby="custom-title">
+      <div class="container custom">
+        <div class="custom-art reveal">
+          <div class="arch">
+            <Photo product={p} sizes="(min-width: 900px) 380px, 80vw" />
+          </div>
         </div>
-        <a class="btn btn-light btn-lg" href={waLink(customMessage)} target="_blank" rel="noopener">
-          <WhatsAppIcon size={22} /> Ask on WhatsApp
-        </a>
+        <div class="custom-copy reveal">
+          <p class="eyebrow">Custom designs</p>
+          <h2 class="h2" id="custom-title">
+            Something made <em>just for you</em>
+          </h2>
+          <p class="lede">
+            Have a colour, a symbol or an occasion in mind? Custom designs are available on request. Tell us your idea
+            and we’ll work it out together.
+          </p>
+          <a class="btn btn-wa" href={waLink(customMessage)} target="_blank" rel="noopener">
+            <WhatsAppIcon size={18} /> Ask on WhatsApp
+          </a>
+        </div>
       </div>
     </section>
   )
@@ -237,7 +195,7 @@ function Faq() {
   const faqs = [
     {
       q: 'How do I place an order?',
-      a: 'Add the designs you like to your bag and tap “Send order on WhatsApp”. Your order opens as a ready-made message. Send it, and we’ll reply to confirm.',
+      a: 'Add the pieces you like to your bag and tap “Send order on WhatsApp”. Your order opens as a ready-written message. Send it, and we’ll reply to confirm.',
     },
     {
       q: 'How do I pay?',
@@ -250,9 +208,9 @@ function Faq() {
     },
     {
       q: 'Will my piece look exactly like the photo?',
-      a: 'Everything is completely handmade, so small variations between pieces are expected. That’s part of what makes each one special.',
+      a: 'Everything is completely handmade, so small variations between pieces are expected. It is part of what makes each one unique.',
     },
-    { q: 'Can I get a custom design?', a: 'Yes! Custom designs are available on request. Message us on WhatsApp with your idea.' },
+    { q: 'Can I get a custom design?', a: 'Yes. Custom designs are available on request. Message us on WhatsApp with your idea.' },
   ]
   return (
     <section class="section faq" id="faq" aria-labelledby="faq-title">
@@ -277,11 +235,11 @@ function Faq() {
 // ── Page ────────────────────────────────────────────────────────────────────
 
 /** A mix across collections: one from each, round and round. */
-function mixed() {
+function selected(n: number) {
   const lists = collections.map((c) => productsIn(c.id))
   const out: Product[] = []
   for (let i = 0; out.length < products.length; i++) for (const l of lists) if (l[i]) out.push(l[i])
-  return out.slice(0, 12)
+  return out.slice(0, n)
 }
 
 export function Home() {
@@ -306,37 +264,41 @@ export function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
+      <Promises />
 
       <section class="section" aria-labelledby="coll-title">
         <div class="container">
-          <SectionHead id="coll-title" eyebrow="Collections" title="Three collections, all hand-painted" />
+          <SectionHead id="coll-title" eyebrow="The collections" title="Three collections, one tradition" center />
           <div class="coll-grid">
             {collections.map((c) => (
-              <CollectionCard key={c.id} c={c} />
+              <CollectionTile key={c.id} c={c} cover={COVERS[c.id] ?? productsIn(c.id)[0].id} />
             ))}
           </div>
         </div>
       </section>
 
-      <section class="section section-tight" aria-labelledby="picks-title">
+      <section class="section section-alt" aria-labelledby="picks-title">
         <div class="container">
           <SectionHead
             id="picks-title"
-            eyebrow="Designs"
-            title="Pick your favourites"
+            eyebrow="Selected pieces"
+            title="From the studio"
             action={
-              <a class="link-arrow" href="/shop">
-                See all {products.length} <ArrowIcon size={18} />
+              <a class="text-link" href="/shop">
+                View all {products.length} pieces
               </a>
             }
           />
+          <div class="grid">
+            {selected(8).map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
         </div>
-        <Rail products={mixed()} label="Designs" />
       </section>
 
       <HowToOrder />
-      <CustomBand />
+      <Custom />
       <Faq />
     </>
   )

@@ -51,7 +51,7 @@ export function ProductPage({ product: p }: { product: Product }) {
   })
 
   return (
-    <div data-accent={c.accent}>
+    <div>
       <div class="container product">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
@@ -68,20 +68,19 @@ export function ProductPage({ product: p }: { product: Product }) {
             <button type="button" class="zoom-trigger" onClick={() => zoom.current?.showModal()} aria-label="Zoom in on photo">
               <Photo product={p} class="product-photo" sizes="(min-width: 900px) 540px, 92vw" priority="high" />
               <span class="zoom-hint" aria-hidden="true">
-                <ZoomIcon size={18} />
+                <ZoomIcon size={17} stroke-width={1.4} />
               </span>
             </button>
           </div>
 
           <div class="product-info">
-            <a href={collectionUrl(c)} class="coll-chip">
-              <span lang="hi">{c.hindi}</span>
-              {c.name}
+            <a href={collectionUrl(c)} class="product-coll">
+              {c.name} <span lang="hi">{c.hindi}</span>
             </a>
-            <h1 class="product-title">{p.name}</h1>
+            <h1 class="display product-title">{p.name}</h1>
             <p class="product-type">
               {c.type}
-              {c.limited && <span class="badge">Limited edition</span>}
+              {c.limited && <span class="flag">Limited edition</span>}
             </p>
             <p class="product-price">{price(p.price)}</p>
             <p class="product-desc">{c.description}</p>
@@ -89,20 +88,20 @@ export function ProductPage({ product: p }: { product: Product }) {
             <div class="product-actions">
               <AddButton product={p} variant="large" />
               <a class="btn btn-wa btn-lg" href={waLink(productMessage(p))} target="_blank" rel="noopener">
-                <WhatsAppIcon size={20} /> Order just this
+                <WhatsAppIcon size={18} /> Order just this
               </a>
             </div>
 
             <ul class="specs">
               <li>
-                <RulerIcon size={20} />
+                <RulerIcon size={20} stroke-width={1.2} />
                 <div>
                   <b>Size</b>
                   <span>{c.size}</span>
                 </div>
               </li>
               <li>
-                <TruckIcon size={20} />
+                <TruckIcon size={20} stroke-width={1.2} />
                 <div>
                   <b>Delivery</b>
                   <span>
@@ -111,7 +110,7 @@ export function ProductPage({ product: p }: { product: Product }) {
                 </div>
               </li>
               <li>
-                <BrushIcon size={20} />
+                <BrushIcon size={20} stroke-width={1.2} />
                 <div>
                   <b>Made with</b>
                   <span>{c.materials.join(' · ')}</span>
@@ -120,7 +119,7 @@ export function ProductPage({ product: p }: { product: Product }) {
             </ul>
 
             <p class="handmade-note">
-              <SparkIcon size={18} />
+              <SparkIcon size={18} stroke-width={1.2} />
               <span>
                 Every piece is completely handmade, so yours may vary slightly from the photo. That’s what makes it
                 one of a kind.
@@ -131,7 +130,7 @@ export function ProductPage({ product: p }: { product: Product }) {
       </div>
 
       {more.length > 0 && (
-        <section class="section section-tight" aria-labelledby="more-title">
+        <section class="more" aria-labelledby="more-title">
           <div class="container">
             <SectionHead id="more-title" eyebrow={c.typePlural} title={`More from ${c.name}`} />
           </div>
@@ -147,7 +146,7 @@ export function ProductPage({ product: p }: { product: Product }) {
       >
         <img src={ph.large} alt={`${fullName(p)}, full size`} width={960} height={1280} loading="lazy" decoding="async" />
         <button type="button" class="icon-btn zoom-close" aria-label="Close">
-          <CloseIcon />
+          <CloseIcon stroke-width={1.5} />
         </button>
       </dialog>
     </div>

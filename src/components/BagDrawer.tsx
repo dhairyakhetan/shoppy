@@ -56,17 +56,17 @@ export function BagDrawer() {
       <div class="bag-inner">
         <header class="bag-head">
           <h2 id="bag-title">
-            Your bag {n > 0 && <span class="bag-count">{plural(n, 'item')}</span>}
+            Your bag {n > 0 && <span class="bag-count">{plural(n, 'piece')}</span>}
           </h2>
           <button type="button" class="icon-btn" onClick={close} aria-label="Close bag">
-            <CloseIcon />
+            <CloseIcon stroke-width={1.5} />
           </button>
         </header>
 
         {sent && (
           <div class="bag-sent" role="status">
             <span class="bag-sent-icon">
-              <CheckIcon size={18} stroke-width={3} />
+              <CheckIcon size={16} stroke-width={2} />
             </span>
             <div>
               <p>
@@ -83,11 +83,11 @@ export function BagDrawer() {
 
         {n === 0 ? (
           <div class="bag-empty">
-            <Diya size={88} id="diya-bag" lit />
+            <Diya size={72} id="diya-bag" lit />
             <p class="bag-empty-title">Your bag is empty</p>
             <p>Every piece is painted by hand. Find one you love.</p>
             <a href="/shop" class="btn btn-primary" onClick={close}>
-              Browse designs <ArrowIcon size={18} />
+              Explore the collection <ArrowIcon size={16} stroke-width={1.5} />
             </a>
           </div>
         ) : (
@@ -97,7 +97,7 @@ export function BagDrawer() {
                 {lines.value.map(({ product: p, qty }) => {
                   const c = collectionOf(p)
                   return (
-                    <li key={p.id} class="bag-line" data-accent={c.accent}>
+                    <li key={p.id} class="bag-line">
                       <a href={productUrl(p)} class="bag-thumb" onClick={close} tabIndex={-1} aria-hidden="true">
                         <Photo product={p} sizes="72px" />
                       </a>
@@ -116,7 +116,7 @@ export function BagDrawer() {
                             onClick={() => setQty(p.id, 0)}
                             aria-label={`Remove ${c.name} ${p.name}`}
                           >
-                            <TrashIcon size={18} />
+                            <TrashIcon size={17} stroke-width={1.5} />
                           </button>
                         </div>
                       </div>
@@ -128,7 +128,7 @@ export function BagDrawer() {
 
               <fieldset class="bag-details">
                 <legend>
-                  Your details <span>(optional, added to the message)</span>
+                  Your details <span>Optional, added to the message</span>
                 </legend>
                 <Field name="name" label="Name" placeholder="Your name" />
                 <Field name="area" label={`Area in ${site.city}`} placeholder="e.g. Salt Lake, Behala" />
@@ -143,10 +143,10 @@ export function BagDrawer() {
               </div>
               <ul class="bag-notes">
                 <li>
-                  <PinIcon size={16} /> Delivery within {site.city} only
+                  <PinIcon size={15} stroke-width={1.5} /> Delivery within {site.city} only
                 </li>
                 <li>
-                  <ChatIcon size={16} /> Payment is arranged with you on WhatsApp
+                  <ChatIcon size={15} stroke-width={1.5} /> Payment is arranged with you on WhatsApp
                 </li>
               </ul>
               <a
@@ -156,7 +156,7 @@ export function BagDrawer() {
                 rel="noopener"
                 onClick={() => setSent(true)}
               >
-                <WhatsAppIcon size={22} /> Send order on WhatsApp
+                <WhatsAppIcon size={20} /> Send order on WhatsApp
               </a>
             </footer>
           </>

@@ -1,116 +1,98 @@
 /* ── Fonts ─────────────────────────────────────────────────────────────────
-   Both are trimmed to just the letters the site uses (scripts/subset-fonts.mjs). */
+   Trimmed to just the letters the site uses (scripts/subset-fonts.mjs). */
 @font-face {
-  font-family: 'Fraunces';
-  src: url('../assets/fonts/fraunces.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'Cormorant';
+  src: url('../assets/fonts/cormorant.woff2') format('woff2');
+  font-weight: 300 700;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Rozha One';
-  src: url('../assets/fonts/rozha-one-hindi.woff2') format('woff2');
+  font-family: 'Cormorant';
+  src: url('../assets/fonts/cormorant-italic.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Tiro Hindi';
+  src: url('../assets/fonts/tiro-hindi.woff2') format('woff2');
   font-display: swap;
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+25CC, U+A8E0-A8FF;
 }
 
-/* ── Colours ───────────────────────────────────────────────────────────────
-   Rani pink + marigold, with peacock teal and haldi as supporting colours.
-   Light is a warm ivory day; dark is a deep indigo Diwali night. */
+/* ── Colour ────────────────────────────────────────────────────────────────
+   Ivory, ink, antique brass and deep emerald. Light is a warm paper day;
+   dark is lamplight on a warm black. */
 :root {
-  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-hindi: 'Rozha One', 'Noto Serif Devanagari', 'Kohinoor Devanagari', serif;
+  --font-display: 'Cormorant', 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-hindi: 'Tiro Hindi', 'Noto Serif Devanagari', 'Kohinoor Devanagari', serif;
   --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial,
     sans-serif;
 
-  --rani: #e91e78;
-  --rani-strong: #d81b6e; /* buttons: white text passes AA */
-  --rani-ink: #c4105a; /* pink text on light backgrounds */
-  --rani-soft: #ffe3ef;
-  --marigold: #ff8a00;
-  --marigold-ink: #a85400;
-  --marigold-soft: #ffebd1;
-  --peacock: #0e9594;
-  --peacock-strong: #0b7c7b;
-  --peacock-ink: #0b7c7b;
-  --peacock-soft: #d6f3f0;
-  --haldi: #ffc53d;
-  --wa: #15803d;
-  --wa-hover: #166534;
-  --plum: #2a1633;
+  --bg: #f7f2ea;
+  --bg-alt: #efe7da;
+  --surface: #fcfaf6;
+  --text: #1d1a16;
+  --text-2: #675e53;
+  --line: rgb(29 26 22 / 0.12);
+  --line-strong: rgb(29 26 22 / 0.26);
 
-  --bg: #fff8ee;
-  --bg-alt: #fff0dc;
-  --surface: #ffffff;
-  --surface-2: #fff4e6;
-  --text: #2a1633;
-  --text-2: #6b5470;
-  --line: rgb(42 22 51 / 0.1);
-  --line-strong: rgb(42 22 51 / 0.2);
-  --backdrop: rgb(42 22 51 / 0.45);
+  --brass: #a8834a; /* decorative lines, icons */
+  --brass-ink: #7a5b2a; /* brass-coloured text */
+  --brass-soft: #e9dcc4;
+  --emerald: #1f4b3f;
+  --emerald-hover: #173a30;
 
-  --shadow-sm: 0 1px 2px rgb(42 22 51 / 0.05), 0 4px 12px -6px rgb(42 22 51 / 0.12);
-  --shadow: 0 1px 2px rgb(42 22 51 / 0.06), 0 16px 36px -16px rgb(42 22 51 / 0.28);
-  --shadow-lg: 0 30px 60px -24px rgb(42 22 51 / 0.45);
+  /* Buttons */
+  --btn-bg: #1d1a16;
+  --btn-fg: #f7f2ea;
+  --btn-hover: #3a342c;
 
-  --radius: 20px;
-  --radius-sm: 12px;
-  --max: 1200px;
-  --gutter: clamp(16px, 4vw, 32px);
-  --header-h: 64px;
-  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Always-dark panels (footer, ordering band) */
+  --ink: #1d1a16;
+  --ink-2: #26221d;
+  --on-ink: #eee6d8;
+  --on-ink-2: #a99f90;
+  --brass-on-ink: #c9a56a;
+
+  --backdrop: rgb(29 26 22 / 0.5);
+  --shadow: 0 24px 50px -30px rgb(29 26 22 / 0.35);
+  --shadow-lg: 0 40px 80px -40px rgb(29 26 22 / 0.5);
+
+  --radius: 2px;
+  --max: 1240px;
+  --gutter: clamp(20px, 4.5vw, 48px);
+  --header-h: 68px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --rani: #ff4f9a;
-  --rani-ink: #ff7ab5;
-  --rani-soft: #3b1843;
-  --marigold: #ffa53a;
-  --marigold-ink: #ffb95e;
-  --marigold-soft: #3a2433;
-  --peacock: #2ec4c0;
-  --peacock-ink: #5ad8d4;
-  --peacock-soft: #133b4b;
-  --haldi: #ffd166;
+  --bg: #12100d;
+  --bg-alt: #1a1713;
+  --surface: #1e1b17;
+  --text: #eee6d8;
+  --text-2: #a99f90;
+  --line: rgb(238 230 216 / 0.1);
+  --line-strong: rgb(238 230 216 / 0.24);
 
-  --bg: #150f2e;
-  --bg-alt: #1c1442;
-  --surface: #221a4a;
-  --surface-2: #2a2158;
-  --text: #fff1e0;
-  --text-2: #c9b8d9;
-  --line: rgb(255 241 224 / 0.1);
-  --line-strong: rgb(255 241 224 / 0.22);
-  --backdrop: rgb(8 5 20 / 0.6);
+  --brass: #c9a56a;
+  --brass-ink: #d4b47b;
+  --brass-soft: #3a3024;
+  --emerald: #2e6b58;
+  --emerald-hover: #377c66;
 
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 12px -6px rgb(0 0 0 / 0.4);
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 36px -16px rgb(0 0 0 / 0.7);
-  --shadow-lg: 0 30px 60px -24px rgb(0 0 0 / 0.8);
+  --btn-bg: #eee6d8;
+  --btn-fg: #12100d;
+  --btn-hover: #ffffff;
+
+  --ink: #0b0a08;
+  --ink-2: #171411;
+
+  --backdrop: rgb(0 0 0 / 0.65);
+  --shadow: 0 24px 50px -30px rgb(0 0 0 / 0.8);
+  --shadow-lg: 0 40px 80px -40px rgb(0 0 0 / 0.9);
 
   color-scheme: dark;
-}
-
-/* Each collection has its own accent colour. */
-[data-accent='rani'] {
-  --accent: var(--rani);
-  --accent-solid: var(--rani-strong);
-  --accent-ink: var(--rani-ink);
-  --accent-soft: var(--rani-soft);
-  --on-accent: #fff;
-}
-[data-accent='peacock'] {
-  --accent: var(--peacock);
-  --accent-solid: var(--peacock-strong);
-  --accent-ink: var(--peacock-ink);
-  --accent-soft: var(--peacock-soft);
-  --on-accent: #fff;
-}
-[data-accent='marigold'] {
-  --accent: var(--marigold);
-  --accent-solid: #ff8a00;
-  --accent-ink: var(--marigold-ink);
-  --accent-soft: var(--marigold-soft);
-  --on-accent: var(--plum);
 }

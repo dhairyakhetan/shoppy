@@ -1,4 +1,5 @@
 import type { ComponentChildren } from 'preact'
+import { Ornament } from './decor'
 
 interface Props {
   eyebrow?: string
@@ -17,6 +18,7 @@ export function SectionHead({ eyebrow, title, sub, action, center, id }: Props) 
         <h2 class="h2" id={id}>
           {title}
         </h2>
+        {center && <Ornament />}
         {sub && <p class="section-sub">{sub}</p>}
       </div>
       {action && <div class="section-action">{action}</div>}

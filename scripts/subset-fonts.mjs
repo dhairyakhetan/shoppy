@@ -1,7 +1,7 @@
-// Cuts the two web fonts down to only the letters the site uses, so they
-// load fast on mobile data:
-//   • Fraunces (headings): basic Latin + punctuation.
-//   • Rozha One (Hindi): only the Devanagari letters found in /src.
+// Cuts the web fonts down to only the letters the site uses, so they load
+// fast on mobile data:
+//   • Cormorant Garamond (headings, regular + italic): basic Latin + punctuation.
+//   • Tiro Devanagari Hindi (Hindi): only the Devanagari letters found in /src.
 //
 // Runs automatically before `npm run dev` and `npm run build`.
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
@@ -36,14 +36,16 @@ let latin = ''
 for (let c = 0x20; c < 0x7f; c++) latin += String.fromCharCode(c)
 latin += '–—‘’“”•…·×→←✓é'
 
-const DEVANAGARI = /[ऀ-ॿ᳐-᳿꣠-ꣿ‌‍]/gu
-const hindi = new Set(['◌']) // dotted circle, used by shapers for lone marks
+const DEVANAGARI = /[\u0900-\u097F\u1CD0-\u1CFF\uA8E0-\uA8FF\u200C\u200D]/gu
+const hindi = new Set(['\u25CC']) // dotted circle, used by shapers for lone marks
 for await (const file of walk(path.join(root, 'src'))) {
   for (const c of (await readFile(file, 'utf8')).match(DEVANAGARI) ?? []) hindi.add(c)
 }
 
+const cormorant = (style) => pkg(`@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-${style}.woff2`)
 const results = await Promise.all([
-  build(pkg('@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2'), latin, 'fraunces.woff2'),
-  build(pkg('@fontsource/rozha-one/files/rozha-one-devanagari-400-normal.woff2'), [...hindi].join(''), 'rozha-one-hindi.woff2'),
+  build(cormorant('normal'), latin, 'cormorant.woff2'),
+  build(cormorant('italic'), latin, 'cormorant-italic.woff2'),
+  build(pkg('@fontsource/tiro-devanagari-hindi/files/tiro-devanagari-hindi-devanagari-400-normal.woff2'), [...hindi].join(''), 'tiro-hindi.woff2'),
 ])
 console.log(`fonts: ${results.join(', ')}`)

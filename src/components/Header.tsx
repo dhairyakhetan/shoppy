@@ -1,17 +1,18 @@
 import { useEffect, useRef } from 'preact/hooks'
 import { collectionUrl, collections } from '../data/catalog'
+import { site } from '../data/site'
 import { addedPulse, bagOpen, count } from '../lib/bag'
 import { currentPath } from '../lib/router'
 import { toggleTheme } from '../lib/theme'
 import { Diya, LogoMark } from './decor'
 import { BagIcon } from './icons'
 
-export function Logo({ id }: { id: string }) {
+export function Logo() {
   return (
-    <a href="/" class="logo" aria-label="SD Creations, home">
-      <LogoMark id={id} />
+    <a href="/" class="logo" aria-label={`${site.name}, home`}>
+      <LogoMark />
       <span class="logo-text">
-        <b>SD</b> Creations
+        SD <span>Creations</span>
       </span>
     </a>
   )
@@ -19,13 +20,8 @@ export function Logo({ id }: { id: string }) {
 
 function ThemeToggle() {
   return (
-    <button
-      type="button"
-      class="icon-btn theme-toggle"
-      onClick={(e) => toggleTheme(e.currentTarget)}
-      title="Light the diya"
-    >
-      <Diya id="diya-toggle" size={30} />
+    <button type="button" class="icon-btn theme-toggle" onClick={(e) => toggleTheme(e.currentTarget)} title="Light the diya">
+      <Diya id="diya-toggle" />
       <span class="sr-only when-light">Switch to dark mode</span>
       <span class="sr-only when-dark">Switch to light mode</span>
     </button>
@@ -37,7 +33,7 @@ function BagButton() {
   const ref = useRef<HTMLButtonElement>(null)
   const pulse = addedPulse.value
 
-  // Little bounce each time something is added.
+  // A small nudge each time something is added.
   useEffect(() => {
     if (!pulse || !ref.current) return
     ref.current.classList.remove('bump')
@@ -51,9 +47,9 @@ function BagButton() {
       ref={ref}
       class="icon-btn bag-btn"
       onClick={() => (bagOpen.value = true)}
-      aria-label={n ? `Open bag, ${n} ${n === 1 ? 'item' : 'items'}` : 'Open bag'}
+      aria-label={n ? `Open bag, ${n} ${n === 1 ? 'piece' : 'pieces'}` : 'Open bag'}
     >
-      <BagIcon size={22} />
+      <BagIcon size={21} stroke-width={1.4} />
       {n > 0 && <span class="bag-badge">{n > 99 ? '99+' : n}</span>}
     </button>
   )
@@ -63,27 +59,38 @@ export function Header() {
   const path = currentPath.value
   const is = (href: string) => (path === href ? 'page' : undefined)
   return (
-    <header class="site-header">
-      <div class="container header-inner">
-        <Logo id="lm-header" />
-        <nav class="nav" aria-label="Main">
-          <a href="/shop" class="nav-shop" aria-current={is('/shop')}>
-            Shop<span class="nav-all"> all</span>
-          </a>
-          {collections.map((c) => (
-            <a key={c.id} href={collectionUrl(c)} class="nav-extra" aria-current={is(collectionUrl(c))}>
-              {c.typePlural}
-            </a>
-          ))}
-          <a href="/#how-to-order" class="nav-extra">
-            How to order
-          </a>
-        </nav>
-        <div class="header-actions">
-          <ThemeToggle />
-          <BagButton />
-        </div>
+    <>
+      <div class="announce">
+        <p>
+          Hand-painted in {site.city} <span aria-hidden="true">·</span> Delivery within {site.city}{' '}
+          <span aria-hidden="true" class="announce-extra">
+            ·
+          </span>{' '}
+          <span class="announce-extra">Order on WhatsApp</span>
+        </p>
       </div>
-    </header>
+      <header class="site-header">
+        <div class="container header-inner">
+          <nav class="nav nav-left" aria-label="Main">
+            <a href="/shop" class="nav-shop" aria-current={is('/shop')}>
+              Shop
+            </a>
+            {collections.map((c) => (
+              <a key={c.id} href={collectionUrl(c)} class="nav-extra" aria-current={is(collectionUrl(c))}>
+                {c.typePlural}
+              </a>
+            ))}
+          </nav>
+          <Logo />
+          <div class="header-actions">
+            <a href="/#how-to-order" class="nav-link nav-extra">
+              How to order
+            </a>
+            <ThemeToggle />
+            <BagButton />
+          </div>
+        </div>
+      </header>
+    </>
   )
 }

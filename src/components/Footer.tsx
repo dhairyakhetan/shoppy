@@ -1,34 +1,32 @@
 import { collectionUrl, collections } from '../data/catalog'
 import { site } from '../data/site'
 import { helloMessage, telLink, waLink } from '../lib/whatsapp'
-import { Rangoli } from './decor'
+import { Ornament } from './decor'
 import { Logo } from './Header'
 import { PhoneIcon, PinIcon, WhatsAppIcon } from './icons'
 
 export function Footer() {
   return (
     <footer class="site-footer">
-      <Rangoli class="footer-rangoli" />
-      <div class="container footer-grid">
-        <div class="footer-brand">
-          <Logo id="lm-footer" />
-          <p class="footer-hindi" lang="hi">
-            {site.tagline}
-          </p>
-          <p class="footer-meaning">{site.taglineMeaning}</p>
-        </div>
+      <div class="container footer-top">
+        <Logo />
+        <p class="footer-hindi" lang="hi">
+          {site.tagline}
+        </p>
+        <p class="footer-meaning">{site.taglineMeaning}</p>
+        <Ornament />
+      </div>
 
+      <div class="container footer-grid">
         <nav class="footer-col" aria-label="Shop">
           <h2>Shop</h2>
           <ul>
             <li>
-              <a href="/shop">All designs</a>
+              <a href="/shop">All pieces</a>
             </li>
             {collections.map((c) => (
               <li key={c.id}>
-                <a href={collectionUrl(c)}>
-                  {c.name} <span>· {c.typePlural}</span>
-                </a>
+                <a href={collectionUrl(c)}>{c.name}</a>
               </li>
             ))}
           </ul>
@@ -49,29 +47,31 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div class="footer-col">
-          <h2>Say hello</h2>
-          <ul class="footer-contact">
+        <div class="footer-col footer-contact">
+          <h2>Contact</h2>
+          <ul>
             <li>
               <a href={waLink(helloMessage)} target="_blank" rel="noopener">
-                <WhatsAppIcon size={18} /> WhatsApp {site.phoneDisplay}
+                <WhatsAppIcon size={16} /> WhatsApp {site.phoneDisplay}
               </a>
             </li>
             <li>
               <a href={telLink}>
-                <PhoneIcon size={18} /> Call {site.phoneDisplay}
+                <PhoneIcon size={16} stroke-width={1.5} /> Call {site.phoneDisplay}
               </a>
             </li>
             <li>
-              <PinIcon size={18} /> {site.city}. We deliver within {site.city} only.
+              <PinIcon size={16} stroke-width={1.5} /> {site.city}, delivering within the city
             </li>
           </ul>
         </div>
       </div>
+
       <div class="container footer-bottom">
         <p>
-          © {new Date().getFullYear()} {site.name}. Painted by hand in {site.city}.
+          © {new Date().getFullYear()} {site.name}
         </p>
+        <p>Painted by hand in {site.city}</p>
       </div>
     </footer>
   )

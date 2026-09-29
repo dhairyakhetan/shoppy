@@ -2,7 +2,7 @@
 // index.html (before paint); this handles toggling afterwards.
 type Theme = 'light' | 'dark'
 
-const COLORS: Record<Theme, string> = { light: '#FFF8EE', dark: '#150F2E' }
+const COLORS: Record<Theme, string> = { light: '#F7F2EA', dark: '#12100D' }
 
 const current = (): Theme => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
 
@@ -35,7 +35,7 @@ export function toggleTheme(from?: HTMLElement) {
   vt.ready.then(() => {
     root.animate(
       { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
-      { duration: 650, easing: 'cubic-bezier(.4,0,.2,1)', pseudoElement: '::view-transition-new(root)' },
+      { duration: 900, easing: 'cubic-bezier(.4,0,.2,1)', pseudoElement: '::view-transition-new(root)' },
     )
   })
   vt.finished.finally(() => root.classList.remove('theme-transition'))

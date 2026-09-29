@@ -25,7 +25,7 @@ npm run preview    # serve the production build locally
 | --- | --- |
 | Products, prices, collections, sizes, delivery times | `src/data/catalog.ts` |
 | Phone number, tagline, city | `src/data/site.ts` |
-| Colours (light and dark) | `src/styles/tokens.css` |
+| Colours (ivory, ink, brass, emerald; light and dark) | `src/styles/tokens.css` |
 
 ### Adding a product
 
